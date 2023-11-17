@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo de Adivinhação</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
+        body {
+font-family:'JetBrains Mono', monospace;
+text-align: center;
+padding-top: 240px;
+background-image: linear-gradient(#D9AFD9, #97D9E1);
+background-repeat: no-repeat;
+height: 100vh;
+}
+
+h1 {  
+color: #0b0a0a;
+
+}
+
+
+
+p {
+color: #666;
+}
+
+input {
+width: 100px;
+padding: 5px;
+font-size: 16px;
+}
+
+button {
+padding: 10px 20px;
+background-color:rgb(158, 96, 217);
+color: #fff;
+font-size: 16px;
+border: none;
+cursor: pointer;
+margin: 10px;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+#message {
+font-weight: bold;
+color:rgb(9, 8, 8);
+}
+#message.success {
+color:rgb(139, 26, 246);
+}
+
+    </style>
+</head>
+<body>
+    
+    
+    <h1>Bem-vindo ao Jogo de Adivinhação</h1>
+    <p>Regras: Adivinhe um número entre 1 e 100. Você tem 10 tentativas.</p>
+    <p>Tentativas restantes: <span id="attempts">10</span></p>
+    <input type="number" id="guess" min="1" max="100">
+    <button onclick="checkGuess()">Adivinhar</button>
+    <p id="message"></p>
+    <button onclick="resetGame()">Reiniciar</button>
+
+ <script>
+        window.addEventListener('load',function(){
+            alert('Bem-vindo ao jogo!');
+        });
+
+        
+        var randomNumber = Math.floor(Math.random() * 100) + 1;
+        var remainingAttempts = 10;
+
+        function checkGuess() {
+            var guess = parseInt(document.getElementById("guess").value);
+            if (guess === randomNumber) {
+                document.getElementById("message").innerHTML = "Parabéns! Você adivinhou o número corretamente!";
+                document.getElementById("message").classList.add("success");
+        
+            } else if (guess < randomNumber) {
+                document.getElementById("message").innerHTML = "Tente um número maior.";
+            } else {
+                document.getElementById("message").innerHTML = "Tente um número menor.";
+            }
+            remainingAttempts--;
+            document.getElementById("attempts").innerHTML = remainingAttempts;
+
+            if (remainingAttempts === 0) {
+                document.getElementById("message").innerHTML = "Você esgotou todas as tentativas. O número era " + randomNumber + ".";
+
+            }
+        }
+
+        function resetGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            remainingAttempts = 10;
+            document.getElementById("attempts").innerHTML = remainingAttempts;
+            document.getElementById("guess").value = "";
+            document.getElementById("message").innerHTML = "";
+        }
+   
+    </script>
+</body>
+</html>
